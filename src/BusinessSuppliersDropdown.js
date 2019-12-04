@@ -4,6 +4,8 @@ import ZeitgoldApiService from "./zeitgoldApiService";
 
 const EXERCISE_BUSINESS_ID =
   "QnVzaW5lc3NOb2RlOmI0OTllOGVlLTliZWUtNGE5NC1iNGJjLTZkZmRkNzI5ZTFkYQ==";
+const PLACEHOLDER_TEXT= "Select Business Supplier"
+const NO_RESULTS_TEXT = "No results"
 
 class BusinessSuppliersDropdown extends React.Component {
   state = {
@@ -35,9 +37,9 @@ class BusinessSuppliersDropdown extends React.Component {
     return (
       <Dropdown
         errorText={errorText}
-        placeholder="Select Business Supplier"
+        placeholder={PLACEHOLDER_TEXT}
         list={listOptions}
-        resultsDefaultText={"No results"}
+        resultsDefaultText={NO_RESULTS_TEXT}
       />
     );
   }
