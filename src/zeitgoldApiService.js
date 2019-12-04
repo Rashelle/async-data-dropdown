@@ -10,12 +10,6 @@ export default class ZeitgoldApiService {
             displayName
           }
         }
-        pageInfo {
-          hasNextPage
-          hasPreviousPage
-          startCursor
-          endCursor
-        }
       }
     }`;
 
