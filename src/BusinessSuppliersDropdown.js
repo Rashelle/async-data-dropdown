@@ -7,19 +7,24 @@ const EXERCISE_BUSINESS_ID =
 
 class BusinessSuppliersDropdown extends React.Component {
   state = {
-    businessSuppliers: []
+    businessSuppliers: [],
+    apiError: false
   };
 
-  componentDidMount() {
-    ZeitgoldApiService.getBusinessSuppliers(EXERCISE_BUSINESS_ID).then(
-      businessSuppliers => {
-        this.setState({ businessSuppliers });
-      }
-    );
+  async componentDidMount() {
+    try {
+      const businessSuppliers = await ZeitgoldApiService.getBusinessSuppliers(
+        EXERCISE_BUSINESS_ID
+      );
+      this.setState({ businessSuppliers });
+    } catch (e) {
+      this.setState({ apiError: true });
+    }
   }
 
   render() {
-    const { businessSuppliers } = this.state;
+    const { businessSuppliers, apiError } = this.state;
+    const errorText = apiError ? "Error Loading Business Suppliers" : null;
     const listOptions = businessSuppliers
       .filter(supplier => supplier.displayName)
       .map(supplier => ({
@@ -29,6 +34,7 @@ class BusinessSuppliersDropdown extends React.Component {
 
     return (
       <Dropdown
+        errorText={errorText}
         placeholder="Select Business Supplier"
         list={listOptions}
         resultsDefaultText={"No results"}

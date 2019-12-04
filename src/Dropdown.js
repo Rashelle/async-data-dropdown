@@ -46,17 +46,19 @@ class Dropdown extends React.Component {
   onCloseIconClicked = () => this.setState({ userInput: "" });
 
   renderItemsContainer() {
-    const { resultsDefaultText } = this.props;
+    const { resultsDefaultText , errorText } = this.props;
     const { userInput } = this.state;
     const displayedList = this.getDisplayedList();
 
     return (
       <div className="list-container">
-        {displayedList.map(item => (
-          <div key={item.id} className="list-item">
-            {item.title}
-          </div>
-        ))}
+        {errorText ? errorText : displayedList
+          .filter(item => item.title)
+          .map(item => (
+            <div key={item.id} className="list-item">
+              {item.title}
+            </div>
+          ))}
         {userInput.length > 0 && displayedList.length == 0 && (
           <div className="results-default-text">{resultsDefaultText}</div>
         )}
@@ -98,7 +100,8 @@ class Dropdown extends React.Component {
 Dropdown.propTypes = {
   placeholder: string,
   list: array,
-  resultsDefaultText: string
+  resultsDefaultText: string,
+  errorText: string
 };
 
 Dropdown.defaultProps = {
